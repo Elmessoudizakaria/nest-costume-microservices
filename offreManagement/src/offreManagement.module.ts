@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { OffreModule } from "./offre/offre.module";
-
+import {dbs} from '../../shared/config';
 
 @Module({
     imports:[
-        MongooseModule.forRoot('mongodb+srv://primemanager:12345@test-r8ncv.gcp.mongodb.net/offremanager?retryWrites=true&w=majority'),
+        MongooseModule.forRoot(dbs.offreService.uri),
         OffreModule
     ]
 })
