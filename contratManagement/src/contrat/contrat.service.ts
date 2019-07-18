@@ -20,11 +20,11 @@ export class ContratService{
 
     async findDetailsByClient(noSiret:number):Promise<ContratDetailDto[]>{
         let list:ContratDetailDto[] = [];
-        const contrats = await this.contraModel.find({clientId:noSiret}).exec();
+        const contrats = await this.contraModel.find({clientId:noSiret,isValid:true}).exec();
         return new Promise((resolve,reject)=>{
             contrats.forEach(async (item)=>{
-                const bills = await this.externalService.findBills(item._id); 
-                const result={contrat:item,bills:bills.data}
+                const ligns = await this.externalService.findLigns(item._id); 
+                const result={contrat:item,ligns:ligns.data}
                 list.push(result);
             })
             setTimeout(() => {

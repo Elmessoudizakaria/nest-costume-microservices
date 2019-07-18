@@ -2,7 +2,7 @@ import {Injectable} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Client } from './interfaces/client.interface';
-import { CreateClientDto, UpdateContratClientDto } from './dto/client.dto';
+import { CreateClientDto, UpdateContratClientDto, FindClientDetailDto } from './dto/client.dto';
 import { ExternalService } from './externals/external.service';
 
 @Injectable()
@@ -44,31 +44,31 @@ export class ClientService{
         return await client.save();
     }
 
-    async findBySiret(siret:number):Promise<string>{
+    async findBySiret(siret:number):Promise<FindClientDetailDto>{
         const client = await  this.clientModel.findOne({noSiret:siret}).exec();
         if(!client){
-            return 'NEW'
+            return {status:false,client:null,detail:null};
         }else{
-            const clientValidContrats = await this.externalService.getContrat(client.noSiret);
-            if(clientValidContrats.data.length===0){
-                return 'NEW'
+            const contratEtLignes = await this.externalService.getContrat(client.noSiret);
+            // 
+            if(contratEtLignes.data.length===0){
+                return {status:false,client:null,detail:null};
             }else{
-                for(let i=0;i<clientValidContrats.data.length;i++){
-                    const contrat = clientValidContrats.data[i];
+                for(let i=0;i<contratEtLignes.data.length;i++){
+                    const contrat = contratEtLignes.data[i].contrat;
                     if(contrat.activatedLigns.length>0){
-                        return 'PARC'
+                        return {status:true,client:client,detail:contratEtLignes.data};
                     }
                 }
                 // bills conditions
                 for(let j=0;j<client.contracts.length;j++){
                     const activeBills = await this.findBillsByMonth(client.contracts[j],2);
                     if(activeBills.data.length>0){
-                        return 'PARC'
+                        return {status:true,client:client,detail:contratEtLignes.data};
                     }else{
-                        return 'NEW'
+                        return {status:false,client:null,detail:null};
                     }
-                }
-                
+                }  
             }
         }
         

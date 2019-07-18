@@ -56,4 +56,8 @@ export class LignService{
         await this.externalService.updateContrat(updatedContrat);
         return await this.lignModel.findOneAndUpdate({_id:id},{status:status})
     }
+
+    async findByContrat(contratId:string){
+        return await this.lignModel.find({contratId:contratId}).exec();
+    }
 }

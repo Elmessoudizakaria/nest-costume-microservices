@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Put } from "@nestjs/common";
+import { Controller, Post, Body, Put, Get, Param } from "@nestjs/common";
 import { LignService } from "./lign.service";
 import { CreateLignDto, UpdateLignStatusDto } from "./dto/lign.dto";
 
@@ -15,5 +15,10 @@ export class LignController{
     @Put()
     async updatedStatus(@Body() updatedLignDto:UpdateLignStatusDto){
         return await this.lignService.updateStatus(updatedLignDto.lignId,updatedLignDto.status);
+    }
+
+    @Get('/contrat/:id')
+    async findByContrat(@Param('id') contratId:string){
+        return await this.lignService.findByContrat(contratId);
     }
 }

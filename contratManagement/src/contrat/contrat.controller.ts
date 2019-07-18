@@ -29,8 +29,13 @@ export class ContratController{
         const noSiret:number = parseInt(idClient);
         const contrats= await this.contratService.findByClient(noSiret);
         return contrats;
+    }
 
-        
+    @Get('client/detail/:id')
+    async findByClientDetails(@Param('id') idClient:string){
+        const noSiret:number = parseInt(idClient);
+        const contrats= await this.contratService.findDetailsByClient(noSiret);
+        return contrats;
     }
 
     @Get(':id')

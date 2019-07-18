@@ -1,6 +1,6 @@
 import { Controller, Body, Post, Param, Get, Put } from "@nestjs/common";
 import { ClientService } from "./client.service";
-import { CreateClientDto, UpdateContratClientDto } from "./dto/client.dto";
+import { CreateClientDto, UpdateContratClientDto, FindClientDetailDto } from "./dto/client.dto";
 import { Client } from "./interfaces/client.interface";
 
 
@@ -20,7 +20,7 @@ export class ClientController{
     }
 
     @Get(':id')
-    async getOne(@Param('id') id:string):Promise<Client|string>{
+    async getOne(@Param('id') id:string):Promise<FindClientDetailDto>{
         const noSiret:number = parseInt(id);
         return await this.clientService.findBySiret(noSiret);
     }

@@ -10,5 +10,5 @@ export class CreateContratDto{
 
 export class ContratDetailDto{
     readonly contrat:Contrat;
-    readonly bills:any[]
+    readonly ligns:any[]
 }

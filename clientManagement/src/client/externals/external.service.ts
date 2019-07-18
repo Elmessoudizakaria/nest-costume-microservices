@@ -5,7 +5,7 @@ export class ExternalService{
     constructor(private readonly _http:HttpService){}
 
     async getContrat(noSiret:number){
-        const path: string = services.contratService.path+'/client/'+noSiret;
+        const path: string = services.contratService.path+'/client/detail/'+noSiret;
         return await this._http.get(path).toPromise();
     }
 
