@@ -8,4 +8,13 @@ export class ExternalService{
         const path: string = services.contratService.path+'/client/'+noSiret;
         return await this._http.get(path).toPromise();
     }
+
+    async findBillsXMonth(contratId:string,month:number){
+        const path:string = services.billService.path+'/'+contratId+'/'+month;
+        try {
+            return await this._http.get(path).toPromise();
+        } catch (error) {
+            return error
+        }
+    }
 }

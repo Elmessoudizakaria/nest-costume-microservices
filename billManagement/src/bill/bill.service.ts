@@ -18,4 +18,11 @@ export class BillService{
         const filter = {contratId:contratId};
        return await this.billModel.find(filter).exec();
     }
+
+    async findByContratAndLastXMonth(contratId:string, months:number){
+        let date = new Date();
+            date.setMonth(date.getMonth() - months);
+        const filter={contratId:contratId,dateCreation:{$gte:date}};
+        return await this.billModel.find(filter).exec();
+    }
 }

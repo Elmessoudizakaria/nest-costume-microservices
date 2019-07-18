@@ -17,4 +17,10 @@ export class BillController{
     async getBillsByContrat(@Param('id') contratId:string):Promise<Bill[]>{
         return await this.billService.findByContrat(contratId);
     }
+
+    @Get(':id/:month')
+    async getBillsInLastXMonthByContrat(@Param('id') contratId:string,@Param('month') months:string):Promise<Bill[]>{
+        const month = parseInt(months);
+        return await this.billService.findByContratAndLastXMonth(contratId,month);
+    }
 }

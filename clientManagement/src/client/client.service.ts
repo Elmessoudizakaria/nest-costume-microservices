@@ -43,4 +43,38 @@ export class ClientService{
         client.contracts.push(updateContratClientDto.idContrat);
         return await client.save();
     }
+
+    async findBySiret(siret:number):Promise<string>{
+        const client = await  this.clientModel.findOne({noSiret:siret}).exec();
+        if(!client){
+            return 'NEW'
+        }else{
+            const clientValidContrats = await this.externalService.getContrat(client.noSiret);
+            if(clientValidContrats.data.length===0){
+                return 'NEW'
+            }else{
+                for(let i=0;i<clientValidContrats.data.length;i++){
+                    const contrat = clientValidContrats.data[i];
+                    if(contrat.activatedLigns.length>0){
+                        return 'PARC'
+                    }
+                }
+                // bills conditions
+                for(let j=0;j<client.contracts.length;j++){
+                    const activeBills = await this.findBillsByMonth(client.contracts[j],2);
+                    if(activeBills.data.length>0){
+                        return 'PARC'
+                    }else{
+                        return 'NEW'
+                    }
+                }
+                
+            }
+        }
+        
+    }
+
+    async findBillsByMonth(id:string,month:number){
+        return await this.externalService.findBillsXMonth(id,month);
+    }
 }
