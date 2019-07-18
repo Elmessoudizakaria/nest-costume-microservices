@@ -16,6 +16,10 @@ export class ExternalApiService{
 
     async findBills(contratId:string){
         const path:string = services.billService.path+'/contrat/'+contratId;
-        return await this.http.get(path).toPromise();
+        try {
+            return await this.http.get(path).toPromise();
+        } catch (error) {
+            return error
+        }
     }
 }

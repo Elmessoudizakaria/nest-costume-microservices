@@ -20,7 +20,7 @@ export class ClientController{
     }
 
     @Get(':id')
-    async getOne(@Param('id') id:string):Promise<Client>{
+    async getOne(@Param('id') id:string):Promise<Client|string>{
         const noSiret:number = parseInt(id);
         return await this.clientService.findOne(noSiret);
     }

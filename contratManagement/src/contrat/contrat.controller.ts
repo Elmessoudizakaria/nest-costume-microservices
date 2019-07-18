@@ -26,9 +26,8 @@ export class ContratController{
     @Get('client/:id')
     async findByClient(@Param('id') idClient:string){
         const noSiret:number = parseInt(idClient);
-        // const contrats= await this.contratService.findByClient(noSiret);
-        const test = await this.contratService.testCascad(noSiret);
-        return test;
+        const contrats= await this.contratService.findByClient(noSiret);
+        return contrats;
 
         
     }
@@ -39,5 +38,15 @@ export class ContratController{
         const bills = await this.externaleService.findBills(id);
         return {contrat,bills:bills.data};
 
+    }
+
+    @Get('turnOn/:id')
+    async turnOn(@Param('id') id :string){
+        return await this.contratService.turnOn(id);
+    }
+    
+    @Get('turnOff/:id')
+    async turnOff(@Param('id') id :string){
+        return await this.contratService.turnOff(id);
     }
 }

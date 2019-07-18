@@ -2,9 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Contrat } from "./interfaces/contart.interface";
-import { CreateContratDto } from "./dto/contart.dto";
+import { CreateContratDto, ContratDetailDto } from "./dto/contart.dto";
 import { ExternalApiService } from "./externals/externalApi";
-
 
 @Injectable()
 export class ContratService{
@@ -16,15 +15,12 @@ export class ContratService{
     }
 
     async findByClient(noSiret:number):Promise<Contrat[]>{
-        return await this.contraModel.find({clientId:noSiret}).exec();
-    }
-    async findById(id:string){
-        return await this.contraModel.findById(id).exec();
+        return await this.contraModel.find({clientId:noSiret,isValid:true}).exec();
     }
 
-    async testCascad(noSiret:number){
-        let list = [];
-        const contrats = await this.findByClient(noSiret);
+    async findDetailsByClient(noSiret:number):Promise<ContratDetailDto[]>{
+        let list:ContratDetailDto[] = [];
+        const contrats = await this.contraModel.find({clientId:noSiret}).exec();
         return new Promise((resolve,reject)=>{
             contrats.forEach(async (item)=>{
                 const bills = await this.externalService.findBills(item._id); 
@@ -35,5 +31,20 @@ export class ContratService{
                 resolve(list)
             }, 350);
         });  
+    }
+
+    async findById(id:string){
+       try {
+        return await this.contraModel.findById(id).exec();
+       } catch (error) {
+           return error;
+       }
+    }
+
+    async turnOn(id:string){
+        return await this.contraModel.findByIdAndUpdate(id,{isValid:true});
+    }
+    async turnOff(id:string){
+        return await this.contraModel.findByIdAndUpdate(id,{isValid:false});
     }
 }
