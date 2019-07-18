@@ -41,6 +41,14 @@ export class ContratService{
        }
     }
 
+    async updateLignsContrat(contrat:Contrat){
+        try {
+            return await this.contraModel.findOneAndUpdate({_id:contrat._id},contrat,{upsert:true})
+        } catch (error) {
+            return error;
+        }
+    }
+    
     async turnOn(id:string){
         return await this.contraModel.findByIdAndUpdate(id,{isValid:true});
     }

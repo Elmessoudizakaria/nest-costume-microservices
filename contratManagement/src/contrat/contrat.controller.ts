@@ -1,7 +1,8 @@
-import { Controller, Param, Get, Post, Body } from "@nestjs/common";
+import { Controller, Param, Get, Post, Body, Put } from "@nestjs/common";
 import { ContratService } from "./contrat.service";
 import { CreateContratDto } from "./dto/contart.dto";
 import { ExternalApiService } from "./externals/externalApi";
+import { Contrat } from "./interfaces/contart.interface";
 
 
 @Controller('contrat')
@@ -34,10 +35,7 @@ export class ContratController{
 
     @Get(':id')
     async findById(@Param('id') id :string){
-        const contrat = await this.contratService.findById(id);
-        const bills = await this.externaleService.findBills(id);
-        return {contrat,bills:bills.data};
-
+        return  await this.contratService.findById(id);
     }
 
     @Get('turnOn/:id')
@@ -48,5 +46,10 @@ export class ContratController{
     @Get('turnOff/:id')
     async turnOff(@Param('id') id :string){
         return await this.contratService.turnOff(id);
+    }
+
+    @Put()
+    async updatecontratLigns(@Body() contrat:Contrat){
+        return await this.contratService.updateLignsContrat(contrat);
     }
 }

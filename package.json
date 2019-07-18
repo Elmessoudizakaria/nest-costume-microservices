@@ -1,7 +1,6 @@
 {
   "name": "saisi-distan",
   "version": "1.0.0",
-  "description": "",
   "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,5 +10,16 @@
   "license": "ISC",
   "dependencies": {
     "ts-node": "^8.3.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elmessoudizakaria/nest-costume-microservices.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Elmessoudizakaria/nest-costume-microservices/issues"
+  },
+  "homepage": "https://github.com/Elmessoudizakaria/nest-costume-microservices#readme",
+  "description": ""
 }
