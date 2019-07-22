@@ -1,5 +1,5 @@
 import { Injectable, HttpService } from "@nestjs/common";
-import { services } from '../../../../shared/proxies';
+import { services } from '../../../shared/proxies';
 @Injectable()
 export class ExternalService{
     constructor(private readonly _http:HttpService){}
