@@ -1,15 +1,14 @@
-import { CreateClientDto } from '../dto/client.dto';
+import { CreateClientDto } from '../src/dto/client.dto';
 import * as request from 'supertest';
-import { Client } from '../interfaces/client.interface';
 import * as mongoose from 'mongoose';
-import { dbs } from '../../../shared/config';
+import { dbs } from '../../shared/config';
 import { HttpStatus } from '@nestjs/common';
 
 const app = 'http://localhost:4000';
 
 describe('Client Controller', () => {
     beforeAll(async () => {
-        await mongoose.connect(dbs.clientService.uri);
+        await mongoose.connect(dbs.clientService.test_uri);
         await mongoose.connection.db.dropDatabase();
     });
 
@@ -30,6 +29,7 @@ describe('Client Controller', () => {
             .send(createClient)
             .expect(({ body }) => {
                 expect(body.noSiret).toEqual(createClient.noSiret);
+                expect(body.fassoc).toEqual(createClient.fassoc);
             });
     });
 
