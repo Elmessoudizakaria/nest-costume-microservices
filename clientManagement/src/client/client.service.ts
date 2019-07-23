@@ -74,7 +74,6 @@ export class ClientService {
             const contratEtLignes = await this.externalService.getContrat(
                 client.noSiret
             );
-            //
             if (contratEtLignes.data.length === 0) {
                 return { status: false, client: null, detail: null };
             } else {

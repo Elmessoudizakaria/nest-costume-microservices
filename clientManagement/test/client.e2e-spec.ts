@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { CreateClientDto } from '../src/dto/client.dto';
 import * as request from 'supertest';
 import * as mongoose from 'mongoose';
@@ -8,7 +9,7 @@ const app = 'http://localhost:4000';
 
 describe('Client Controller', () => {
     beforeAll(async () => {
-        await mongoose.connect(dbs.clientService.test_uri);
+        await mongoose.connect(process.env.MONGO_TEST_URI);
         await mongoose.connection.db.dropDatabase();
     });
 
