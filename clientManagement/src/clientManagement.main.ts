@@ -1,12 +1,13 @@
+import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { ClientManagementModule } from './clientManagement.module';
 
-export async function clientManagement(){
+export async function clientManagement() {
     const app = await NestFactory.create(ClientManagementModule);
-    app.listen(4000,()=>{
-        console.log('CLIENT MANAGEMENT IS RUNNIGN ON PORT 4000')
-    })
+    const PORT = process.env.PORT || 4000;
+    app.listen(PORT, () => {
+        console.log(`CLIENT MANAGEMENT IS RUNNIGN ON PORT ${PORT}`);
+    });
 }
-
 
 clientManagement();

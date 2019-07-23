@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node ./src/clientManagement.main.ts",
+    "start": "ts-node ./src/app.main.ts",
     "start:dev": "NODE_ENV=development npm start",
     "test": "jest",
     "test:e2e": "jest --config ./test/jest-e2e.json"
