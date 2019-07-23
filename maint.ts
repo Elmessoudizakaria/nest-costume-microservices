@@ -1,3 +1,2 @@
-import {clientManagement} from './clientManagement/src/clientManagement.main';
-
+import { clientManagement } from './clientManagement/src/clientManagement.main';
 clientManagement();

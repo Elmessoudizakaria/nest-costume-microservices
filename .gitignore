@@ -2,3 +2,4 @@
 /*/node_modules
 /shared/proxies.ts
 /shared/config.ts
+*.env
