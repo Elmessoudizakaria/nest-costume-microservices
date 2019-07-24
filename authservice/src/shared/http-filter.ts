@@ -24,7 +24,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
             message: exception.message.error || exception.message || null
         };
         loger.error(
-            `${request.method} ${request.url} ${Date.now() - now} ms`,
+            `${new Date().toLocaleString()}  ERROR :......${request.method} ${
+                request.url
+            } ${Date.now() - now} ms`,
             JSON.stringify(errorResponse)
         );
         response.status(status).json(errorResponse);

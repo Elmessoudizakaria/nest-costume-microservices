@@ -1,14 +1,17 @@
 import { LoggerService } from '@nestjs/common';
-// import { writeFileSync } from 'fs';
+import { createWriteStream } from 'fs';
+const logger = createWriteStream('C:/Users/z.elmessoudi/logger/logs', {
+    flags: 'a'
+});
 export class MyLogger implements LoggerService {
     log(message: string) {
-        const curentTime: Date = new Date();
-        const log: string = message + ' AT : ' + curentTime.toLocaleString();
-        console.log(!message ? '' : log);
-        // writeFileSync('./logs', log);
+        console.log(!message ? '' : message);
+        logger.write(message);
     }
     error(message: string, trace: string) {
         console.log(message + ' : ' + trace);
+        const log = message + ' : ' + trace + '\n';
+        logger.write(log);
     }
     warn(message: string) {}
     debug(message: string) {}

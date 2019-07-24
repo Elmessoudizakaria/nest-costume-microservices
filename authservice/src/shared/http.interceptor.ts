@@ -20,10 +20,9 @@ export class LoggingInterceptor implements NestInterceptor {
             .handle()
             .pipe(
                 tap(() =>
-                    loger.error(
-                        `${method} ${url} ${new Date().toLocaleString()} ${Date.now() -
-                            now} ms`,
-                        context.getClass().name
+                    loger.log(
+                        `${new Date().toLocaleString()}  INFO :......${method} ${url} ${new Date().toLocaleString()} ${Date.now() -
+                            now} ms : ${context.getClass().name}`
                     )
                 )
             );
