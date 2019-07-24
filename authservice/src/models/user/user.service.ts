@@ -1,8 +1,8 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from '../interfaces/user.interfaces';
+import { User } from '../../interfaces/user.interfaces';
 import { Model } from 'mongoose';
-import { CreateUserDto, LoginUser } from '../dto/user.dto';
+import { CreateUserDto, LoginUser } from '../../dto/user.dto';
 
 @Injectable()
 export class UserService {
