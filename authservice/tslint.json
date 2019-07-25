@@ -7,8 +7,6 @@
     "jsRules": {},
     "rules": {
         "eofline": false,
-
-
         "member-access": false,
         "indent": false,
         "ordered-imports": [false],
@@ -17,7 +15,7 @@
         "unified-signatures": false,
         "callable-types": false,
         "max-line-length": [true, {
-            "limit": 120,
+            "limit": 150,
             "ignore-pattern": "^import |^export {(.*?)}"
         }],
         "member-ordering": [false],

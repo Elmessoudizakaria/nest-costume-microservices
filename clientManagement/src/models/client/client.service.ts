@@ -64,46 +64,34 @@ export class ClientService {
         return await client.save();
     }
 
-    async findBySiret(siret: number): Promise<FindClientDetailDto> {
+    async findClientBySiret(siret: number): Promise<Client> {
         const client = await this.clientModel
             .findOne({ noSiret: siret })
             .exec();
+        return client;
+    }
+
+    async findClientDetailBySiret(siret: number): Promise<FindClientDetailDto> {
+        const client = await this.findClientBySiret(siret);
         if (!client) {
             return { status: false, client: null, detail: null };
         } else {
+            // recupere les contrat valid avec les lignes
             const contratEtLignes = await this.externalService.getContrat(
                 client.noSiret
             );
-            if (contratEtLignes.data.length === 0) {
-                return { status: false, client: null, detail: null };
-            } else {
-                for (let i = 0; i < contratEtLignes.data.length; i++) {
-                    const contrat = contratEtLignes.data[i].contrat;
-                    if (contrat.activatedLigns.length > 0) {
-                        return {
-                            status: true,
-                            client: client,
-                            detail: contratEtLignes.data
-                        };
-                    }
-                }
-                // bills conditions
-                for (let j = 0; j < client.contracts.length; j++) {
-                    const activeBills = await this.findBillsByMonth(
-                        client.contracts[j],
-                        2
-                    );
-                    if (activeBills.data.length > 0) {
-                        return {
-                            status: true,
-                            client: client,
-                            detail: contratEtLignes.data
-                        };
-                    } else {
-                        return { status: false, client: null, detail: null };
-                    }
-                }
-            }
+            const contratandLignes = contratEtLignes.data;
+            // filterd contract by active lignes
+            const filtredContratByActiveLignes = contratandLignes
+                .map(el => el)
+                .filter(el => el.contrat.activatedLigns);
+            //  bills in less than 2 months
+            const bills = client.contracts.map(async contrat => {
+                return await this.externalService.findBillsXMonth(contrat, 2);
+            });
+            return filtredContratByActiveLignes.length > 0 || bills.length > 0
+                ? { status: true, client, detail: filtredContratByActiveLignes }
+                : { status: false, client: null, detail: null };
         }
     }
 

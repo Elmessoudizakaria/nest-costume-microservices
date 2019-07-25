@@ -28,7 +28,7 @@ export class ClientController {
     @Get(':id')
     async getOne(@Param('id') id: string): Promise<FindClientDetailDto> {
         const noSiret: number = parseInt(id);
-        return await this.clientService.findBySiret(noSiret);
+        return await this.clientService.findClientDetailBySiret(noSiret);
     }
 
     @Get('/down/:id')

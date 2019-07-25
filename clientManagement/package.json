@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:dev": "set NODE_ENV=developement && npm start",
     "start": "ts-node ./src/clientManagement.main.ts",
     "start:test": "set NODE_ENV=test && npm start",
     "test": "jest",
