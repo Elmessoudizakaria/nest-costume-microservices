@@ -1,8 +1,8 @@
 import { Controller, Param, Get, Post, Body, Put } from '@nestjs/common';
 import { ContratService } from './contrat.service';
-import { CreateContratDto } from '../dto/contart.dto';
-import { ExternalApiService } from '../externals/externalApi';
-import { Contrat } from '../interfaces/contart.interface';
+import { CreateContratDto } from '../../dto/contart.dto';
+import { ExternalApiService } from '../../externals/externalApi';
+import { Contrat } from '../../interfaces/contart.interface';
 
 @Controller('contrat')
 export class ContratController {

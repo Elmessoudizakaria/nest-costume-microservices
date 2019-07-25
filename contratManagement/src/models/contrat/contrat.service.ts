@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Contrat } from '../interfaces/contart.interface';
-import { CreateContratDto, ContratDetailDto } from '../dto/contart.dto';
-import { ExternalApiService } from '../externals/externalApi';
+import { Contrat } from '../../interfaces/contart.interface';
+import { CreateContratDto, ContratDetailDto } from '../../dto/contart.dto';
+import { ExternalApiService } from '../../externals/externalApi';
 
 @Injectable()
 export class ContratService {

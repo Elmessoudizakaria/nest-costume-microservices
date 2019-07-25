@@ -1,7 +1,7 @@
 import { Controller, Body, Post, Param, Get } from '@nestjs/common';
 import { BillService } from './bill.service';
-import { CreateBillDto } from '../dto/bill.dto';
-import { Bill } from '../interfaces/bill.interface';
+import { CreateBillDto } from '../../dto/bill.dto';
+import { Bill } from '../../interfaces/bill.interface';
 
 @Controller('bill')
 export class BillController {

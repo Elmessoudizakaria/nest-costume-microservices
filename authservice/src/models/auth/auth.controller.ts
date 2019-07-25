@@ -1,4 +1,12 @@
-import { Controller, Get, UseGuards, Post, Body } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    UseGuards,
+    Post,
+    Body,
+    HttpException,
+    HttpStatus
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { LoginUser, CreateUserDto } from '../../dto/user.dto';
@@ -20,12 +28,18 @@ export class AuthController {
     @Post('/login')
     async login(@Body() userDto: LoginUser) {
         const user = await this.userService.findByLogin(userDto);
-
-        const payload = {
-            username: user.username
-        };
-        const token = await this.authService.signPayload(payload);
-        return { user, token };
+        if (user) {
+            const payload = {
+                username: user.username
+            };
+            const token = await this.authService.signPayload(payload);
+            return { user, token };
+        } else {
+            throw new HttpException(
+                'LOGIN OR PASSWORD ARE WRONG',
+                HttpStatus.UNAUTHORIZED
+            );
+        }
     }
 
     @Post('/register')

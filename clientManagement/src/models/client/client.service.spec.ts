@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ClientService } from './client.service';
-import { ExternalService } from '../externals/external.service';
+import { ExternalService } from '../../externals/external.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { HttpModule } from '@nestjs/common';
 import { CreateClientDto } from 'src/dto/client.dto';

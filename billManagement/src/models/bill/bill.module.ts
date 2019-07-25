@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { billSchema } from '../schema/bill.schema';
+import { billSchema } from '../../schema/bill.schema';
 import { BillController } from './bill.controller';
 import { BillService } from './bill.service';
 

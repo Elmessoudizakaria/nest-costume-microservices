@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ClientModle } from './client/client.module';
+import { ClientModle } from './models/client/client.module';
 import { dbs } from '../../shared/config';
 @Module({
     imports: [

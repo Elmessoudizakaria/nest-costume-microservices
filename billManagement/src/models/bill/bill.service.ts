@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Bill } from '../interfaces/bill.interface';
-import { CreateBillDto } from '../dto/bill.dto';
+import { Bill } from '../../interfaces/bill.interface';
+import { CreateBillDto } from '../../dto/bill.dto';
 
 @Injectable()
 export class BillService {

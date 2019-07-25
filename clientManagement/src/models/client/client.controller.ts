@@ -4,8 +4,8 @@ import {
     CreateClientDto,
     UpdateContratClientDto,
     FindClientDetailDto
-} from '../dto/client.dto';
-import { Client } from '../interfaces/client.interface';
+} from '../../dto/client.dto';
+import { Client } from '../../interfaces/client.interface';
 
 @Controller('client')
 export class ClientController {

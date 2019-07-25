@@ -25,6 +25,18 @@ export class ApiService {
         }
     }
 
+    async getAcess(payload: any) {
+        try {
+            const access = await this._http
+                .post('http://localhost:5000/auth/login', payload)
+                .toPromise();
+            const { token } = access.data;
+            return token;
+        } catch (error) {
+            return error.response.data;
+        }
+    }
+
     realPath(path: string) {
         if (path.startsWith('/api/client')) {
             return services.clientService.path;

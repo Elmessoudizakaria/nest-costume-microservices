@@ -1,9 +1,9 @@
 import { Module, HttpModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { contratSchema } from '../schema/contart.schema';
+import { contratSchema } from '../../schema/contart.schema';
 import { ContratController } from './contrat.controller';
 import { ContratService } from './contrat.service';
-import { ExternalApiService } from '../externals/externalApi';
+import { ExternalApiService } from '../../externals/externalApi';
 
 @Module({
     imports: [

@@ -1,13 +1,13 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Client } from '../interfaces/client.interface';
+import { Client } from '../../interfaces/client.interface';
 import {
     CreateClientDto,
     UpdateContratClientDto,
     FindClientDetailDto
-} from '../dto/client.dto';
-import { ExternalService } from '../externals/external.service';
+} from '../../dto/client.dto';
+import { ExternalService } from '../../externals/external.service';
 
 @Injectable()
 export class ClientService {
