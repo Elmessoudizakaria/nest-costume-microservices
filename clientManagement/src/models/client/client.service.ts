@@ -8,18 +8,19 @@ import {
     FindClientDetailDto
 } from '../../dto/client.dto';
 import { ExternalService } from '../../externals/external.service';
+import { ClientRepo } from '../../interfaces/client.repo';
 
 @Injectable()
-export class ClientService {
+export class ClientService extends ClientRepo {
     constructor(
         @InjectModel('Client') private clientModel: Model<Client>,
         private externalService: ExternalService
-    ) {}
+    ) {
+        super(clientModel);
+    }
 
     async create(createClientDto: CreateClientDto): Promise<Client> {
-        const client = await this.clientModel.findOne({
-            noSiret: createClientDto.noSiret
-        });
+        const client = await this.findByNoSiret(createClientDto.noSiret);
         if (!client) {
             const createdClient = new this.clientModel(createClientDto);
             return await createdClient.save();
@@ -31,9 +32,7 @@ export class ClientService {
         }
     }
     async findOne(siret: number): Promise<Client | string> {
-        const client = await this.clientModel
-            .findOne({ noSiret: siret })
-            .exec();
+        const client = await this.findByNoSiret(siret);
         if (client) {
             const contrats = await this.externalService.getContrat(
                 client.noSiret
@@ -58,8 +57,8 @@ export class ClientService {
     }
 
     async updateContracts(updateContratClientDto: UpdateContratClientDto) {
-        const filter = { noSiret: updateContratClientDto.noSiret };
-        const client = await this.clientModel.findOne(filter).exec();
+        // const filter = { noSiret: updateContratClientDto.noSiret };
+        const client = await this.findByNoSiret(updateContratClientDto.noSiret);
         client.contracts.push(updateContratClientDto.idContrat);
         return await client.save();
     }
@@ -72,7 +71,7 @@ export class ClientService {
     }
 
     async findClientDetailBySiret(siret: number): Promise<FindClientDetailDto> {
-        const client = await this.findClientBySiret(siret);
+        const client = await this.findByNoSiret(siret);
         if (!client) {
             return { status: false, client: null, detail: null };
         } else {

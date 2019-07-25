@@ -4,6 +4,7 @@ import { clientSchema } from '../../schema/client.schema';
 import { ClientController } from './client.controller';
 import { ClientService } from './client.service';
 import { ExternalService } from '../../externals/external.service';
+import { ClientRepo } from '../../interfaces/client.repo';
 
 @Module({
     imports: [
@@ -11,6 +12,6 @@ import { ExternalService } from '../../externals/external.service';
         HttpModule
     ],
     controllers: [ClientController],
-    providers: [ClientService, ExternalService]
+    providers: [ClientService, ExternalService, ClientRepo]
 })
 export class ClientModle {}
