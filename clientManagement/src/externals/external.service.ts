@@ -12,10 +12,10 @@ export class ExternalService {
     }
 
     async findBillsXMonth(contratId: string, month: number) {
-        const path: string =
+        const path_2: string =
             services.billService.path + '/' + contratId + '/' + month;
         try {
-            return await this._http.get(path).toPromise();
+            return await this._http.get(path_2).toPromise();
         } catch (error) {
             return error;
         }
