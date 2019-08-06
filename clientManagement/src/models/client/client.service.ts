@@ -9,6 +9,7 @@ import {
 } from '../../dto/client.dto';
 import { ExternalService } from '../../externals/external.service';
 import { ClientRepo } from '../../interfaces/client.repo';
+import { combineLatest } from 'rxjs';
 
 @Injectable()
 export class ClientService extends ClientRepo {

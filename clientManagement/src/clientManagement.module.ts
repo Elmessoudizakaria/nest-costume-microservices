@@ -6,7 +6,7 @@ import { dbs } from '../../shared/config';
     imports: [
         MongooseModule.forRoot(
             process.env.NODE_ENV.toString().startsWith('test')
-                ? process.env.MONGO_TEST_URI
+                ? process.env.MONGO_DEV_URI
                 : process.env.MONGO_DEV_URI
         ),
         ClientModle

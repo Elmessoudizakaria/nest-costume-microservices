@@ -3,6 +3,7 @@ import { ContratService } from './contrat.service';
 import { CreateContratDto } from '../../dto/contart.dto';
 import { ExternalApiService } from '../../externals/externalApi';
 import { Contrat } from '../../interfaces/contart.interface';
+import { map } from 'rxjs/operators';
 
 @Controller('contrat')
 export class ContratController {
@@ -64,5 +65,12 @@ export class ContratController {
     @Put()
     async updatecontratLigns(@Body() contrat: Contrat) {
         return await this.contratService.updateLignsContrat(contrat);
+    }
+
+    @Get()
+    async findAll() {
+        const contracdts = await this.contratService.findAll();
+        return await contracdts;
+        // console.log(contracdts);
     }
 }

@@ -1,5 +1,6 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { services } from '../../../shared/proxies';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ExternalApiService {
@@ -7,6 +8,11 @@ export class ExternalApiService {
 
     async checkClient(noSiret: number) {
         const path: string = services.clientService.path + '/' + noSiret;
+        return await this.http.get(path).toPromise();
+    }
+
+    async findClient(): Promise<any> {
+        const path: string = services.clientService.path;
         return await this.http.get(path).toPromise();
     }
     async updateClient(client) {
