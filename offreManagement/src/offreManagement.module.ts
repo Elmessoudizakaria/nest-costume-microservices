@@ -4,6 +4,9 @@ import { OffreModule } from './models/offre/offre.module';
 import { dbs } from '../../shared/config';
 
 @Module({
-    imports: [MongooseModule.forRoot(dbs.offreService.uri), OffreModule]
+    imports: [
+        MongooseModule.forRoot(dbs.offreService.uri, { useNewUrlParser: true }),
+        OffreModule
+    ]
 })
 export class OffreManagementModule {}
